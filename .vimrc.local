@@ -1,0 +1,110 @@
+"set shell=/bin/bash
+set nocompatible              " be iMproved
+filetype off                  " required!
+if has("win32")
+    set rtp+=~/vimfiles/bundle/vundle/
+    let path='~/vimfiles/bundle'
+    "set rtp+=$HOME/.vim/bundle/vundle/
+    call vundle#rc(path)
+else
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+endif
+
+" let Vundle manage Vundle
+" required! 
+Plugin 'gmarik/vundle'
+
+" Using netrw plugin instead of built in version (fixes some nasty bugs)
+Plugin 'eiginn/netrw'
+
+" Plugins here 
+" Language plugins
+"Plugin 'tpope/vim-haml'
+"Plugin 'ck.vim'
+Plugin 'sophacles/vim-processing'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'kchmck/vim-coffee-script'
+
+" CSS 
+Plugin 'wavded/vim-stylus'
+Plugin 'vim-less'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'skammer/vim-css-color'
+Plugin 'hail2u/vim-css3-syntax'
+
+" Javascript Plugins
+Plugin 'Shutnik/jshint2.vim'
+Plugin 'JSON.vim' 
+Plugin 'vim-javascript'
+
+" Enhancements
+Plugin 'tpope/vim-surround'
+Plugin 'tsaleh/vim-matchit'
+Plugin 'tpope/vim-repeat'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'mattn/emmet-vim'
+Plugin 'mattn/gist-vim'
+Plugin 'NrrwRgn'
+"Plugin 'ack.vim'
+Plugin 'vim-scripts/greplace.vim'
+Plugin 'Townk/vim-autoclose'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-fugitive'
+Plugin 'altercation/vim-colors-solarized'
+
+
+" Vim Colorscheme and Font Settings
+set guifont=Bitstream\ Vera\ Sans\ Mono
+if !has("gui_running")
+    let g:solarized_termcolors = 256
+    let g:solarized_visibility = "high"
+    let g:solarized_contrast = "high"
+    let g:solarized_termtrans = 1
+endif
+
+colorscheme solarized
+set background=dark
+
+
+" Numbers of pixels between lines
+:set linespace=8 
+
+" Automatically change current vim directory to open file
+set autochdir
+
+" Disable text wrapping
+set nowrap
+
+filetype indent on
+filetype plugin indent on
+
+let g:ctrlp_match_window_bottom = 0
+
+au BufWinLeave * silent! mkview
+au BufWinEnter * silent! loadview
+
+autocmd FileType sass,scss,stylus syn cluster sassCssAttributes add=@cssColors
+
+au BufNewFile,BufRead *.phtml set filetype=html
+au BufNewFile,BufRead *.cshtml set filetype=html
+au BufNewFile,BufRead *.coffee set filetype=coffee
+au BufNewFile,BufRead *.less set filetype=less
+au BufNewFile,BufRead *.pde set filetype=processing
+
+set tabstop=4
+set sw=4
+
+" Lint .js files before saving
+autocmd! BufWritePost * if &filetype == "javascript" | silent JSHint | endif
+
+noremap <left> noop
+noremap <right> noop
+noremap <up> noop
+noremap <down> noop
+
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
